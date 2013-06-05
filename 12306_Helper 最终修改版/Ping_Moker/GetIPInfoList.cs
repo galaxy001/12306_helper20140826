@@ -10,6 +10,7 @@ namespace PingMock
 {
     public class GetIPInfoList
     {
+
         /// <summary>
         /// 返回前N条数据
         /// </summary>
@@ -91,6 +92,34 @@ namespace PingMock
                 callback(item);
             });
         }
+        /// <summary>
+        /// 逐条返回信息
+        /// </summary>
+        /// <param name="callback">返回的Object_IP对象</param>
+        /// <param name="url">获取信息的URL</param>
+        public List<Object_Server> GetSourceItem(string url)
+        {
+            List<Object_Server> list = GetIPList.GetSourceList1(url);
+            return list;
+        }
+
+        public void GetListItem(List<Object_Server> list,Action<Object_IP> callbackIP)
+        {
+            List<Object_IP> listIP = new List<Object_IP>();
+            list.ForEach(item =>
+            {
+                Object_IP o = new Object_IP();
+                o.Ip = item.Ip;
+                listIP.Add(o);
+            });
+
+            Parallel.ForEach(listIP, (item) =>
+            {
+                item.HttpSetSpeed();
+                callbackIP(item);
+            });
+        }
+
         /// <summary>
         /// 获取ip信息列表
         /// </summary>

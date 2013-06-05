@@ -54,10 +54,10 @@ namespace _12306_Helper
                 rtxtStationNames.Visible = false;
                 foreach (var v in DatasList.TrainStartList.Keys)
                 {
-                    if (DatasList.TrainStartList[v].Contains(txtStationName.Text))
+                    if (System.Text.RegularExpressions.Regex.IsMatch(DatasList.TrainStartList[v],txtStationName.Text+"[^\\u4e00-\\u9fff]、?"))
                     {
                         lblTicketTime.Text = v.ToString();
-                        lblStationNames.Text = txtStationName.Text;
+                        lblStationNames.Text =txtStationName.Text;
                         break;
                     }
                 }

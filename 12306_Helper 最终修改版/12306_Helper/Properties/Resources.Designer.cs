@@ -61,16 +61,6 @@ namespace _12306_Helper.Properties {
         }
         
         /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap _0 {
-            get {
-                object obj = ResourceManager.GetObject("0", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 http://www.fishlee.net/Discussion/Advice/51 的本地化字符串。
         /// </summary>
         internal static string Advice {
@@ -179,11 +169,29 @@ namespace _12306_Helper.Properties {
         }
         
         /// <summary>
+        ///   查找类似 http://www.fishlee.net/Apps/Cn12306/IpService/get 的本地化字符串。
+        /// </summary>
+        internal static string GetDnsInterface1 {
+            get {
+                return ResourceManager.GetString("GetDnsInterface1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 http://www.innke.cn:8080/Play/index.jsp 的本地化字符串。
         /// </summary>
         internal static string GetDnsInterfaceATM {
             get {
                 return ResourceManager.GetString("GetDnsInterfaceATM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 https://dynamic.12306.cn/otsweb/passengerAction.do?method=initAddPassenger&amp; 的本地化字符串。
+        /// </summary>
+        internal static string initAddPassenger {
+            get {
+                return ResourceManager.GetString("initAddPassenger", resourceCulture);
             }
         }
         
@@ -341,6 +349,15 @@ namespace _12306_Helper.Properties {
         }
         
         /// <summary>
+        ///   查找类似 https://dynamic.12306.cn/otsweb/passengerAction.do?method=initUsualPassenger12306# 的本地化字符串。
+        /// </summary>
+        internal static string passengerAction_initUsualPassenger12306All {
+            get {
+                return ResourceManager.GetString("passengerAction_initUsualPassenger12306All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 https://dynamic.12306.cn/otsweb/passengerAction.do?method=modifyPassenger 的本地化字符串。
         /// </summary>
         internal static string passengerAction_modifyPassenger {
@@ -386,11 +403,29 @@ namespace _12306_Helper.Properties {
         }
         
         /// <summary>
+        ///   查找类似 https://dynamic.12306.cn/otsweb/passengerAction.do?method=savePassenger 的本地化字符串。
+        /// </summary>
+        internal static string savePassenger {
+            get {
+                return ResourceManager.GetString("savePassenger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 http://www.fishlee.net/Apps/Cn12306/ServerIP?method=reg&amp;ip= 的本地化字符串。
         /// </summary>
         internal static string ServerUpload {
             get {
                 return ResourceManager.GetString("ServerUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 http://www.fishlee.net/apps/cn12306/ipservice/update 的本地化字符串。
+        /// </summary>
+        internal static string ServerUploadCloud {
+            get {
+                return ResourceManager.GetString("ServerUploadCloud", resourceCulture);
             }
         }
     }

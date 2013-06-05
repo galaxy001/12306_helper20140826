@@ -180,7 +180,8 @@ namespace _12306_Helper
                 parts = item[2].Split(new string[] { "&nbsp;" }, StringSplitOptions.RemoveEmptyEntries);
                 offset = 0;
                 if (parts[0].StartsWith("<img")) offset++;
-                Arrive_time = parts[offset + 2];
+                //Arrive_time = parts[offset + 2];
+                Arrive_time = parts[parts.Length-1];
                 this.To_station_name = parts[offset];
                 Cost_time = item[3];
 
@@ -218,6 +219,7 @@ namespace _12306_Helper
                 for (int j = 0; j < DatasList.SeatTypeNames.Length; j++)
                 {
                     var val = item[4 + j];
+
                     if (val.IndexOf("有") > -1)
                     {
                         tmp = GetCount(DatasList.SeatTypeNames[j]);

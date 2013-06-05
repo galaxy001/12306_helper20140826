@@ -17,10 +17,18 @@ namespace _12306_Helper
         public string PostData { get { return this._postdata; } set { this._postdata = value; } }
         public string QueryString { get { return this._querystring; } set { this._querystring = value; } }
 
+        public void GetUnfinishedOrder(Action<string> callback, System.Net.CookieContainer cookie)
+        {
+            WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.editMemberAction_initEdit, Properties.Resources.ostweb, "GET", "", cookie);
+            webHelper.SendDataToServer((str) =>
+            {
+                callback(str);
+            });
+        }
 
         public void InitUsualPassenger12306(Action<string> callback, System.Net.CookieContainer cookie)
         {
-            WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.passengerAction_initUsualPassenger12306, Properties.Resources.loginAction_login, "GET", "", cookie);
+            WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.passengerAction_initUsualPassenger12306All, Properties.Resources.loginAction_login, "GET", "", cookie);
             webHelper.SendDataToServer((str) =>
             {
                 callback(str);
@@ -32,6 +40,7 @@ namespace _12306_Helper
             WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.passengerAction_getPagePassengerAll, Properties.Resources.passengerAction_initUsualPassenger12306, "POST", PostData, cookie);
             webHelper.SendDataToServer((str) =>
             {
+                if(str!="")
                 callback(str);
             });
         }
@@ -53,5 +62,23 @@ namespace _12306_Helper
                 callback(str);
             });
         }
+
+        public void InitAddPassenger(Action<string> callback, System.Net.CookieContainer cookie)
+        {
+            WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.initAddPassenger, Properties.Resources.passengerAction_initUsualPassenger12306, "POST", PostData, cookie);
+            webHelper.SendDataToServer((str) =>
+            {
+                callback(str);
+            });
+        }
+
+        public void SavePassenger(Action<string> callback, System.Net.CookieContainer cookie)
+        {
+            WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.savePassenger, Properties.Resources.initAddPassenger, "POST", PostData, cookie);
+            webHelper.SendDataToServer((str) =>
+            {
+                callback(str);
+            });
+        }  
     }
 }

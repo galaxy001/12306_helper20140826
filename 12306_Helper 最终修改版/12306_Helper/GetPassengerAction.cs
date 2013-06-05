@@ -12,7 +12,6 @@ namespace _12306_Helper
         {
             WebRequestHelper webHelper = new WebRequestHelper(Properties.Resources.confirmPassengerAction_getpassengerJson, Properties.Resources.confirmPassengerAction_init, "POST", "", cookie);
             webHelper.SendDataToServer((str) => {
-                if (str != string.Empty)
                     callback(str);
             });
         }

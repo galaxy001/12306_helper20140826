@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace PingMock
 {
     public class GetIPList
     {
         /// <summary>
-        /// 通过URL地址获取IP 内容必须为 0.0.0.0|1.1.1.1 这种形式
+        /// 通过URL地址获取IP
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -26,6 +27,29 @@ namespace PingMock
                 ip.Ip = tmpstr[i].ToString();
                 list.Add(ip);
             }
+            return list;
+        }
+        /// <summary>
+        /// 通过URL地址获取IP 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static List<Object_Server> GetSourceList1(string url)
+        {
+            List<Object_Server> list = new List<Object_Server>();
+            WebClient wc = new WebClient();
+            try
+            {
+                list = JsonConvert.DeserializeObject<List<Object_Server>>(wc.DownloadString(url));
+            }
+            catch {
+                return null;
+            }
+            list.ForEach((item) =>
+            {
+                item.ServerSpeed = item.LocalSpeed;
+                item.LocalSpeed = 0;
+            });
             return list;
         }
     }

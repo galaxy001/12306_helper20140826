@@ -50,9 +50,9 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -113,7 +113,7 @@
             this.richTextBox2.Size = new System.Drawing.Size(462, 68);
             this.richTextBox2.TabIndex = 44;
             this.richTextBox2.Text = "    自2013年1月1日起，通过电话预订车票的旅客可凭订票时乘车人有效身份证件，到全国任一车站窗口或代售点换取已订车票，实现电话订票全国通取。同时，电话订票的" +
-                "取票时间延长12个小时，即：当日12:00前已订车票于第二日12:00前取有效；当日12：00后已订车票于第二日24:00前取有效。";
+    "取票时间延长12个小时，即：当日12:00前已订车票于第二日12:00前取有效；当日12：00后已订车票于第二日24:00前取有效。";
             // 
             // rtxtStationNames
             // 

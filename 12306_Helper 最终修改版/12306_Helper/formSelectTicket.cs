@@ -15,6 +15,7 @@ namespace _12306_Helper
     public partial class formSelectTicket : Form
     {
         private object locker = new object();
+        public static bool switchisalive = false;
         public string user = "";
         string checiID = "";
         string trainClassType = "";
@@ -26,7 +27,7 @@ namespace _12306_Helper
         DateTime startTime;
         bool listenFlag = false;//监听标志
         bool switchEnable = true;
-        HostAction hostAction = new HostAction(Environment.SystemDirectory+"\\drivers\\etc\\hosts");
+        HostAction hostAction;
         Object_IP localhost = new Object_IP();//本地解析服务器
         public static bool hostEnable = true;
         List<Object_IP> dnsList = new List<Object_IP>();//缓存服务器列表
@@ -56,12 +57,24 @@ namespace _12306_Helper
         public formSelectTicket()
         {           
             InitializeComponent();
+            InitHostPath();
             formStyle.MakeShadow(this.Handle);
             dgvQuickTrainInfo.AutoGenerateColumns = false;
             FormThis = this;
             _trainData = new List<TrainData>();
             _BindingData = new BindingList<TrainData>(_trainData);
             SafeTime = 5;//默认的订单提交安全期
+            switchisalive = formLogin.switchOpen;
+        }
+        private void InitHostPath()
+        {
+            try
+            {
+                hostAction = new HostAction(Environment.SystemDirectory + "\\drivers\\etc\\hosts");
+            }
+            catch {
+                hostEnable = false;
+            }
         }
         //初始化用户配置文件
         private void InitConfig()
@@ -119,7 +132,7 @@ namespace _12306_Helper
                 }
             });
         }
-
+        bool passFlag = false;
         //初始化窗体
         private void formSelectTicket_Load(object sender, EventArgs e)
         {
@@ -145,7 +158,19 @@ namespace _12306_Helper
 
             passengerAction.GetPassengersAll((str) => {
                 if (str == "获取信息失败"||str==string.Empty)
-                { MessageBox.Show("信息获取失败，请重试", "获取联系人列表", MessageBoxButtons.OK, MessageBoxIcon.Information);  return; }
+                {
+                    if (!passFlag)
+                    {
+                        passFlag = true;
+                        DeterMineCall(() =>
+                        {
+                            formSelectTicket_Load(sender, e);
+                        });
+                        return;
+                    }
+                    MessageBox.Show("信息获取失败，请重试", "获取联系人列表", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+                    return; 
+                }
                 if(str==null)
                 { MessageBox.Show("获取联系人失败，点击确定，重启程序修复此问题", "获取联系人列表", MessageBoxButtons.OK, MessageBoxIcon.Information); DeleteUserInfo(); Application.Restart(); }
                 translation.TranslationHtml(str, (passengerSource) =>
@@ -175,7 +200,11 @@ namespace _12306_Helper
                                     if (selectPassengerCount == 5)
                                     { MessageBox.Show("已经是订票的最大人数", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information); chk.Checked = false; return; }
                                     _passengersData[chk.TabIndex].Checked = true;
-                                    _QuickPassengers.Add(chk.Text + "|" + ((PassengersData)chk.Tag).Passenger_id_no, chk.Tag);
+                                    try
+                                    {
+                                        _QuickPassengers.Add(chk.Text + "|" + ((PassengersData)chk.Tag).Passenger_id_no, chk.Tag);
+                                    }
+                                    catch { }
                                     selectPassengerCount++;
                                 }
                                 else
@@ -640,18 +669,16 @@ namespace _12306_Helper
             dgvTrainView.Refresh();
             lblLastSelectTime.Text = DateTime.Now.ToLongTimeString();
             AutoTrainNoSource();
-            foreach (DataGridViewRow row in dgvTrainView.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    if (cell.Value.ToString() == "有" || (cell.ColumnIndex > 5 && System.Text.RegularExpressions.Regex.IsMatch(cell.Value.ToString(), "\\d+")))
-                    {
-                        cell.Style.BackColor = Color.FromArgb(255, 192, 255);
-                    }
-                }
-            }
             plSetup.Enabled = true;
             btnSelectAll.Text = "查询";
+        }
+        //为有票的单元格着色
+        private void dgvTrainView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.Value.ToString() == "有" || (e.ColumnIndex > 5 && System.Text.RegularExpressions.Regex.IsMatch(e.Value.ToString(), "\\d+")))
+            {
+                e.CellStyle.BackColor = Color.FromArgb(255, 192, 255);
+            }
         }
         //自定义过滤
         private List<TrainData> CustomFilter(List<TrainData> data)
@@ -912,7 +939,6 @@ namespace _12306_Helper
             else
             {
                 AutoWorkFinished();
-                flpTurnCheckBox.Enabled = true;
             }
         }
         private void Dosomething()
@@ -930,6 +956,7 @@ namespace _12306_Helper
             timer2.Stop();
             btnAutoBook.Text = "抢票";
             lblAutoBook.Text = "自动预定设置";
+            flpTurnCheckBox.Enabled = true;
             Application.DoEvents();
         }
         //初始化自动刷新的参数
@@ -1190,12 +1217,6 @@ namespace _12306_Helper
             notice.ShowBalloonTip(4000, "提示 "+lblVersion.Text, "如果您开启了抢票，抢到票后会自动弹出窗口.",ToolTipIcon.Info);
         }
 
-        private void notice_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            this.Visible = true;
-            notice.Visible = false;
-        }
-
         private void chkCA_Click(object sender, EventArgs e)
         {
             if (chkCA.Checked)
@@ -1359,7 +1380,13 @@ namespace _12306_Helper
 
         private void lblAutoSwitch_Click(object sender, EventArgs e)
         {
-            plAutoSwitch.Visible = !plAutoSwitch.Visible;
+            //plAutoSwitch.Visible = !plAutoSwitch.Visible;
+            if (!switchisalive&&hostEnable&&!formLogin.switchOpen)
+            {
+                switchisalive = true;
+                formSwitchServer fss = new formSwitchServer();
+                fss.Show();
+            }
         }
 
         private void btnInitHosts_Click(object sender, EventArgs e)
@@ -1367,8 +1394,9 @@ namespace _12306_Helper
             try
             {
                 hostAction.InitHosts();
-            }            
-            catch(Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(string.Format("由于访问Hosts文件失败，失败原因：{0}\r\n导致无法初始化Hosts文件，请允许程序访问Hosts文件或者去除Hosts文件的保护,然后重新启动本程序", ex.Message), "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
@@ -1459,5 +1487,16 @@ namespace _12306_Helper
         }
         #endregion
 
+        private void notice_Click(object sender, EventArgs e)
+        {
+            this.Visible = true;
+            notice.Visible = false;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            formPassengersEdit editPassengers = new formPassengersEdit();
+            editPassengers.Show();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using com.adobe.serialization.json;
+using Newtonsoft.Json;
 
 namespace _12306_Helper
 {
@@ -70,17 +71,20 @@ namespace _12306_Helper
         public void TranslationHtml(string html, Action<List<PassengersAllData>> callback)
         {
             List<PassengersAllData> passengers = new List<PassengersAllData>();
-            var obj = JSON.decode(html) as JavaScriptObject;
-            int recordCount = Convert.ToInt32(obj["recordCount"]);
-            var Rows = obj["rows"] as object[];
-            for (int i = 0; i < recordCount; i++)
+            if (html != "")
             {
-                var jobj = Rows[i] as JavaScriptObject;
-                var psData = new PassengersAllData(jobj);
-                passengers.Add(psData);
-            } 
-            if (passengers != null)
-                callback(passengers);
+                var obj = JSON.decode(html) as JavaScriptObject;
+                int recordCount = Convert.ToInt32(obj["recordCount"]);
+                var Rows = obj["rows"] as object[];
+                for (int i = 0; i < recordCount; i++)
+                {
+                    var jobj = Rows[i] as JavaScriptObject;
+                    var psData = new PassengersAllData(jobj);
+                    passengers.Add(psData);
+                }
+                if (passengers != null)
+                    callback(passengers);
+            }
         }
 
         public string UtfEncode(string str)

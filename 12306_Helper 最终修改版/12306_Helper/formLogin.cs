@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
 using PingMock;
+using System.Drawing;
 
 namespace _12306_Helper
 {
     public partial class formLogin : Form
     {
+        public static bool switchOpen = false;
         FormShowStyle formStyle = new FormShowStyle();
         LoginAction la = new LoginAction();
         public formLogin()
@@ -24,8 +26,17 @@ namespace _12306_Helper
         {
             try
             {
-                HostAction hostAction = new HostAction(Environment.SystemDirectory + "\\drivers\\etc\\hosts");
-                hostAction.RestoreHosts();
+                string path=Environment.SystemDirectory + "\\drivers\\etc\\hosts";
+                if (System.IO.File.Exists(path))
+                {
+                    HostAction hostAction = new HostAction(path);
+                    hostAction.RestoreHosts();
+                }
+                else
+                {
+                    formSelectTicket.hostEnable = false;
+                    MessageBox.Show("没有找到hosts文件,请新建后重新启动本程序以恢复自动切换功能,否则切换功能将不可用.", "警告", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch(Exception ex) {
                 formSelectTicket.hostEnable = false;
@@ -211,5 +222,56 @@ namespace _12306_Helper
             }
             GetRandCodeImg();
         }
+
+        private void btnSwitchServer_Click(object sender, EventArgs e)
+        {
+            if (!switchOpen&&formSelectTicket.hostEnable)
+            {
+                switchOpen = true;
+                formSwitchServer fss = new formSwitchServer();
+                fss.Show();
+            }
+        }
+
+        #region 调整窗体大小
+        const int WM_NCHITTEST = 0x0084;
+        const int HTLEFT = 10;
+        const int HTRIGHT = 11;
+        const int HTTOP = 12;
+        const int HTTOPLEFT = 13;
+        const int HTTOPRIGHT = 14;
+        const int HTBOTTOM = 15;
+        const int HTBOTTOMLEFT = 0x10;
+        const int HTBOTTOMRIGHT = 17;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    Point vPoint = new Point((int)m.LParam & 0xFFFF,
+                        (int)m.LParam >> 16 & 0xFFFF);
+                    vPoint = PointToClient(vPoint);
+                    if (vPoint.X <= 5)
+                        if (vPoint.Y <= 5)
+                            m.Result = (IntPtr)HTTOPLEFT;
+                        else if (vPoint.Y >= ClientSize.Height - 5)
+                            m.Result = (IntPtr)HTBOTTOMLEFT;
+                        else m.Result = (IntPtr)HTLEFT;
+                    else if (vPoint.X >= ClientSize.Width - 5)
+                        if (vPoint.Y <= 5)
+                            m.Result = (IntPtr)HTTOPRIGHT;
+                        else if (vPoint.Y >= ClientSize.Height - 5)
+                            m.Result = (IntPtr)HTBOTTOMRIGHT;
+                        else m.Result = (IntPtr)HTRIGHT;
+                    else if (vPoint.Y <= 5)
+                        m.Result = (IntPtr)HTTOP;
+                    else if (vPoint.Y >= ClientSize.Height - 5)
+                        m.Result = (IntPtr)HTBOTTOM;
+                    break;
+            }
+        }
+        #endregion
     }
 }

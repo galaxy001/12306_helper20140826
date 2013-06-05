@@ -61,6 +61,8 @@
             this.lblTop = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label26 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.lnkLinkToCommon = new System.Windows.Forms.LinkLabel();
             this.label23 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
@@ -207,6 +209,9 @@
             this.lblAutoSwitch = new System.Windows.Forms.Label();
             this.plAutoSwitch = new System.Windows.Forms.Panel();
             this.label25 = new System.Windows.Forms.Label();
+            this.plSourceFrom = new System.Windows.Forms.Panel();
+            this.rbtnWifeATM = new System.Windows.Forms.RadioButton();
+            this.rbtnFishlee = new System.Windows.Forms.RadioButton();
             this.chkAllowSwitch = new System.Windows.Forms.CheckBox();
             this.lvSwitchStatus = new System.Windows.Forms.ListView();
             this.时间 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -223,9 +228,6 @@
             this.lblHide = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.tmWatch = new System.Windows.Forms.Timer(this.components);
-            this.rbtnFishlee = new System.Windows.Forms.RadioButton();
-            this.plSourceFrom = new System.Windows.Forms.Panel();
-            this.rbtnWifeATM = new System.Windows.Forms.RadioButton();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.plAllControl.SuspendLayout();
@@ -281,6 +283,8 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(152)))), ((int)(((byte)(152)))), ((int)(((byte)(255)))));
+            this.panel3.Controls.Add(this.label26);
+            this.panel3.Controls.Add(this.linkLabel1);
             this.panel3.Controls.Add(this.lnkLinkToCommon);
             this.panel3.Controls.Add(this.label23);
             this.panel3.Controls.Add(this.label18);
@@ -303,6 +307,30 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1054, 19);
             this.panel3.TabIndex = 33;
+            // 
+            // label26
+            // 
+            this.label26.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label26.Location = new System.Drawing.Point(150, 4);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(11, 10);
+            this.label26.TabIndex = 45;
+            this.label26.Text = "|";
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.linkLabel1.ForeColor = System.Drawing.Color.Navy;
+            this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.linkLabel1.Location = new System.Drawing.Point(83, 4);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(65, 12);
+            this.linkLabel1.TabIndex = 44;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "编辑联系人";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // lnkLinkToCommon
             // 
@@ -427,7 +455,7 @@
             // 
             this.label12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label12.Location = new System.Drawing.Point(322, 4);
+            this.label12.Location = new System.Drawing.Point(392, 4);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(11, 10);
             this.label12.TabIndex = 34;
@@ -437,7 +465,7 @@
             // 
             this.label11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label11.Location = new System.Drawing.Point(243, 4);
+            this.label11.Location = new System.Drawing.Point(320, 4);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(11, 10);
             this.label11.TabIndex = 33;
@@ -449,7 +477,7 @@
             this.lnkStartTime.BackColor = System.Drawing.Color.Transparent;
             this.lnkStartTime.ForeColor = System.Drawing.Color.Navy;
             this.lnkStartTime.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lnkStartTime.Location = new System.Drawing.Point(84, 4);
+            this.lnkStartTime.Location = new System.Drawing.Point(163, 4);
             this.lnkStartTime.Name = "lnkStartTime";
             this.lnkStartTime.Size = new System.Drawing.Size(77, 12);
             this.lnkStartTime.TabIndex = 31;
@@ -462,7 +490,7 @@
             this.lblUser.AutoSize = true;
             this.lblUser.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblUser.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblUser.Location = new System.Drawing.Point(339, 4);
+            this.lblUser.Location = new System.Drawing.Point(411, 4);
             this.lblUser.Name = "lblUser";
             this.lblUser.Size = new System.Drawing.Size(29, 12);
             this.lblUser.TabIndex = 27;
@@ -486,7 +514,7 @@
             // 
             this.label9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label9.Location = new System.Drawing.Point(167, 4);
+            this.label9.Location = new System.Drawing.Point(246, 4);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(11, 10);
             this.label9.TabIndex = 32;
@@ -498,7 +526,7 @@
             this.lblDeleteCookies.BackColor = System.Drawing.Color.Transparent;
             this.lblDeleteCookies.ForeColor = System.Drawing.Color.Navy;
             this.lblDeleteCookies.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblDeleteCookies.Location = new System.Drawing.Point(262, 4);
+            this.lblDeleteCookies.Location = new System.Drawing.Point(334, 4);
             this.lblDeleteCookies.Name = "lblDeleteCookies";
             this.lblDeleteCookies.Size = new System.Drawing.Size(53, 12);
             this.lblDeleteCookies.TabIndex = 28;
@@ -522,7 +550,7 @@
             this.lnkNewContent.BackColor = System.Drawing.Color.Transparent;
             this.lnkNewContent.ForeColor = System.Drawing.Color.Navy;
             this.lnkNewContent.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lnkNewContent.Location = new System.Drawing.Point(184, 4);
+            this.lnkNewContent.Location = new System.Drawing.Point(263, 4);
             this.lnkNewContent.Name = "lnkNewContent";
             this.lnkNewContent.Size = new System.Drawing.Size(53, 12);
             this.lnkNewContent.TabIndex = 31;
@@ -775,6 +803,7 @@
             this.dgvTrainView.TabIndex = 36;
             this.dgvTrainView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrainView_CellClick);
             this.dgvTrainView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTrainView_CellDoubleClick);
+            this.dgvTrainView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvTrainView_CellPainting);
             // 
             // Station_train_code
             // 
@@ -2310,6 +2339,39 @@
             this.label25.Text = "[将hosts文件恢复到最原始状态]";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // plSourceFrom
+            // 
+            this.plSourceFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.plSourceFrom.Controls.Add(this.rbtnWifeATM);
+            this.plSourceFrom.Controls.Add(this.rbtnFishlee);
+            this.plSourceFrom.Location = new System.Drawing.Point(140, 49);
+            this.plSourceFrom.Name = "plSourceFrom";
+            this.plSourceFrom.Size = new System.Drawing.Size(241, 19);
+            this.plSourceFrom.TabIndex = 49;
+            this.plSourceFrom.Visible = false;
+            // 
+            // rbtnWifeATM
+            // 
+            this.rbtnWifeATM.AutoSize = true;
+            this.rbtnWifeATM.Location = new System.Drawing.Point(113, 1);
+            this.rbtnWifeATM.Name = "rbtnWifeATM";
+            this.rbtnWifeATM.Size = new System.Drawing.Size(113, 16);
+            this.rbtnWifeATM.TabIndex = 48;
+            this.rbtnWifeATM.Text = "[老婆的ATM]的源";
+            this.rbtnWifeATM.UseVisualStyleBackColor = true;
+            // 
+            // rbtnFishlee
+            // 
+            this.rbtnFishlee.AutoSize = true;
+            this.rbtnFishlee.Checked = true;
+            this.rbtnFishlee.Location = new System.Drawing.Point(7, 1);
+            this.rbtnFishlee.Name = "rbtnFishlee";
+            this.rbtnFishlee.Size = new System.Drawing.Size(101, 16);
+            this.rbtnFishlee.TabIndex = 47;
+            this.rbtnFishlee.TabStop = true;
+            this.rbtnFishlee.Text = "[Fishlee]的源";
+            this.rbtnFishlee.UseVisualStyleBackColor = true;
+            // 
             // chkAllowSwitch
             // 
             this.chkAllowSwitch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -2451,7 +2513,7 @@
             // 
             this.notice.Icon = ((System.Drawing.Icon)(resources.GetObject("notice.Icon")));
             this.notice.Text = "12306 订票小助手 C# 版";
-            this.notice.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notice_MouseDoubleClick);
+            this.notice.Click += new System.EventHandler(this.notice_Click);
             // 
             // lblHide
             // 
@@ -2486,39 +2548,6 @@
             // 
             this.tmWatch.Interval = 1000;
             this.tmWatch.Tick += new System.EventHandler(this.tmWatch_Tick);
-            // 
-            // rbtnFishlee
-            // 
-            this.rbtnFishlee.AutoSize = true;
-            this.rbtnFishlee.Checked = true;
-            this.rbtnFishlee.Location = new System.Drawing.Point(7, 1);
-            this.rbtnFishlee.Name = "rbtnFishlee";
-            this.rbtnFishlee.Size = new System.Drawing.Size(101, 16);
-            this.rbtnFishlee.TabIndex = 47;
-            this.rbtnFishlee.TabStop = true;
-            this.rbtnFishlee.Text = "[Fishlee]的源";
-            this.rbtnFishlee.UseVisualStyleBackColor = true;
-            // 
-            // plSourceFrom
-            // 
-            this.plSourceFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.plSourceFrom.Controls.Add(this.rbtnWifeATM);
-            this.plSourceFrom.Controls.Add(this.rbtnFishlee);
-            this.plSourceFrom.Location = new System.Drawing.Point(140, 49);
-            this.plSourceFrom.Name = "plSourceFrom";
-            this.plSourceFrom.Size = new System.Drawing.Size(241, 19);
-            this.plSourceFrom.TabIndex = 49;
-            this.plSourceFrom.Visible = false;
-            // 
-            // rbtnWifeATM
-            // 
-            this.rbtnWifeATM.AutoSize = true;
-            this.rbtnWifeATM.Location = new System.Drawing.Point(113, 1);
-            this.rbtnWifeATM.Name = "rbtnWifeATM";
-            this.rbtnWifeATM.Size = new System.Drawing.Size(113, 16);
-            this.rbtnWifeATM.TabIndex = 48;
-            this.rbtnWifeATM.Text = "[老婆的ATM]的源";
-            this.rbtnWifeATM.UseVisualStyleBackColor = true;
             // 
             // formSelectTicket
             // 
@@ -2750,5 +2779,7 @@
         private System.Windows.Forms.Panel plSourceFrom;
         private System.Windows.Forms.RadioButton rbtnWifeATM;
         private System.Windows.Forms.RadioButton rbtnFishlee;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label26;
     }
 }

@@ -14,6 +14,10 @@ namespace _12306_Helper
         public static Hashtable TicketType = new Hashtable();
         public static Hashtable CardType = new Hashtable();
         /// <summary>
+        /// 省份名称和代码
+        /// </summary>
+        public static Dictionary<int, string> ProvinceNames = new Dictionary<int, string>();
+        /// <summary>
         /// 发车时间列表
         /// </summary>
         public static Dictionary<string, string> TrainStartList = new Dictionary<string, string>();
@@ -70,8 +74,42 @@ namespace _12306_Helper
             TicketType.Add( "成人票", "1");
             TicketType.Add( "儿童票", "2");
             TicketType.Add( "学生票", "3");
-            TicketType.Add("残军票", "4");   
- 
+            TicketType.Add("残军票", "4");
+
+            ProvinceNames.Add(11,"北京");
+            ProvinceNames.Add(12, "天津");
+            ProvinceNames.Add(13, "河北");
+            ProvinceNames.Add(15, "内蒙古");
+            ProvinceNames.Add(21, "辽宁");
+            ProvinceNames.Add(22, "吉林");
+            ProvinceNames.Add(23, "黑龙江");
+            ProvinceNames.Add(31, "上海");
+            ProvinceNames.Add(32, "江苏");
+            ProvinceNames.Add(33, "浙江");
+            ProvinceNames.Add(34, "安徽");
+            ProvinceNames.Add(35, "福建");
+            ProvinceNames.Add(36, "江西");
+            ProvinceNames.Add(37, "山东");
+            ProvinceNames.Add(41, "河南");
+            ProvinceNames.Add(42, "湖北");
+            ProvinceNames.Add(43, "湖南");
+            ProvinceNames.Add(44, "广东");
+            ProvinceNames.Add(45, "广西");
+            ProvinceNames.Add(46, "海南");
+            ProvinceNames.Add(50, "重庆");
+            ProvinceNames.Add(51, "四川");
+            ProvinceNames.Add(52, "贵州");
+            ProvinceNames.Add(53, "云南");
+            ProvinceNames.Add(54, "西藏");
+            ProvinceNames.Add(61, "陕西");
+            ProvinceNames.Add(62, "甘肃");
+            ProvinceNames.Add(63, "青海");
+            ProvinceNames.Add(64, "宁夏");
+            ProvinceNames.Add(65, "新疆");
+            ProvinceNames.Add(71, "台湾");
+            ProvinceNames.Add(81, "香港");
+            ProvinceNames.Add(82, "澳门");
+
             //加载发车时间列表
             TrainStartList.Clear();
             TrainStartList.Add("8:00", CityTelcode.StartAtEight);

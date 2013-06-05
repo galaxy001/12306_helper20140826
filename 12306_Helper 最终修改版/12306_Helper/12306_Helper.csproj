@@ -77,7 +77,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JSON">
-      <HintPath>..\..\..\TicketHelper.1.4.6.Source.VS2010\TicketHelper\bin\Debug\JSON.dll</HintPath>
+      <HintPath>bin\Release\JSON.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>bin\Release\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SimpleUpdater, Version=2.2.0.0, Culture=neutral, PublicKeyToken=8bf54bd6729f490c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -87,6 +90,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -140,6 +144,12 @@
     <Compile Include="formSubmitOrder.Designer.cs">
       <DependentUpon>formSubmitOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="formSwitchServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formSwitchServer.Designer.cs">
+      <DependentUpon>formSwitchServer.cs</DependentUpon>
+    </Compile>
     <Compile Include="GetPassengerAction.cs" />
     <Compile Include="HTML_Translation.cs" />
     <Compile Include="HttpWebRequestHelper.cs" />
@@ -190,6 +200,9 @@
     <EmbeddedResource Include="formSubmitOrder.resx">
       <DependentUpon>formSubmitOrder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formSwitchServer.resx">
+      <DependentUpon>formSwitchServer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OrderControl.resx">
       <DependentUpon>OrderControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -218,9 +231,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="0.ico" />
+    <Content Include="1.ico" />
     <None Include="bin\Release\Sound_Sucessed.wav" />
     <None Include="bin\Release\Sound_GetTicket.wav" />
-    <None Include="Resources\0.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -249,6 +262,9 @@
       <Project>{CA3FDF00-32D3-4386-B0EF-8589D44FF237}</Project>
       <Name>Ping_Moker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

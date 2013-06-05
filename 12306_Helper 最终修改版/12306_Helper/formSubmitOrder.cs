@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Collections;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Linq;
 
 namespace _12306_Helper
 {
@@ -19,6 +20,7 @@ namespace _12306_Helper
         string _trainDate = "";
         string _orderNo = "";
         string _postData = "";
+        
         //int queueFlag = 0;
         string ticketPriceStr = "";
         IList<string> ticketsPrice = new List<string>();
@@ -94,6 +96,7 @@ namespace _12306_Helper
                         lblState1.Text = "正在获取Token...";
                         Application.DoEvents();
                         GetToken();
+
                         flplPassengers.AutoScroll = true;
                         flplPassengers.VerticalScroll.Enabled = true;
                         flplPassengers.VerticalScroll.Visible = true;
@@ -128,6 +131,8 @@ namespace _12306_Helper
         {
             DeterMineCall(() =>
             {
+                Hashtable tmpTable = new Hashtable();
+                string tmpStr="";
                 string strSeat = "";
                 foreach (var seat in _trainData.SeatOwener.Keys)
                 {
@@ -136,6 +141,9 @@ namespace _12306_Helper
                     {
                         foreach (var v in ticketsPrice)
                         {
+                            if (!tmpTable.ContainsValue(v.Split('(')[1]))
+                                tmpTable.Add(v.Split('(')[0], v.Split('(')[1]);
+
                             if (v.StartsWith(seat.ToString().Substring(0, 2)))
                             {
                                 strSeat = strSeat + "(" + v.Split('(')[1] + ")";
@@ -145,6 +153,17 @@ namespace _12306_Helper
                     }
                     catch { }
                     Label lbl = new Label();
+                    try
+                    {
+                        if (tmpStr.IndexOf(strSeat.Split('(')[1]) > -1)
+                        {
+                        
+                                ((DataGridViewComboBoxColumn)dgvPassenger.Columns[1]).Items.Remove("无座");
+
+                        }
+                    }
+                    catch { }
+                    tmpStr += strSeat;
                     lbl.ForeColor = Color.Blue;
                     lbl.Text = strSeat + ":" + _trainData.SeatOwener[seat] + "张";
                     lbl.Visible = true;
@@ -551,7 +570,7 @@ namespace _12306_Helper
                         {
                             DetermineCall(() =>
                             {
-                                MessageBox.Show(this, tmpstr + "\n\r\n\r提示猜测：\n\r1.呐~如果出现的是“重复提交”的提示，可能是你之前的订单没有足够的票，系统还在提交的过程中哦,请骚等一会儿再提交试试~~\n\r2.如果是网络问题，那可能是12306现在真的很忙~~\n\r3.如果是其它提示，可能是在购买过程中，票已经没鸟~~", "提交订单", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(this, tmpstr + "\n\r\n\r提示猜测：\n\r1.呐~如果出现的是“重复提交”的提示，可能是你之前的订单没有足够的票，系统还在提交的过程中哦,请骚等一会儿再提交试试~~\n\r2.如果是网络问题，那可能是12306现在真的很忙~~", "提交订单", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 StopSubmit();
                             });
                         }

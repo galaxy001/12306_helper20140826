@@ -42,6 +42,7 @@
             this.lblTop = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkUserInfo = new System.Windows.Forms.CheckBox();
+            this.btnSwitchServer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.randCode)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -159,13 +160,14 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.panel1.Controls.Add(this.chkUserInfo);
             this.panel1.Controls.Add(this.txtPwd);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btnSwitchServer);
             this.panel1.Controls.Add(this.btnLogin);
             this.panel1.Controls.Add(this.txtName);
             this.panel1.Controls.Add(this.btCancel);
@@ -176,7 +178,7 @@
             this.panel1.Controls.Add(this.lblInfomation);
             this.panel1.Location = new System.Drawing.Point(6, 32);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(257, 172);
+            this.panel1.Size = new System.Drawing.Size(257, 169);
             this.panel1.TabIndex = 16;
             // 
             // chkUserInfo
@@ -191,16 +193,29 @@
             this.chkUserInfo.Text = "记住登录信息";
             this.chkUserInfo.UseVisualStyleBackColor = true;
             // 
+            // btnSwitchServer
+            // 
+            this.btnSwitchServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSwitchServer.Location = new System.Drawing.Point(44, 171);
+            this.btnSwitchServer.Name = "btnSwitchServer";
+            this.btnSwitchServer.Size = new System.Drawing.Size(166, 23);
+            this.btnSwitchServer.TabIndex = 14;
+            this.btnSwitchServer.Text = "打开服务器自动切换";
+            this.btnSwitchServer.UseVisualStyleBackColor = true;
+            this.btnSwitchServer.Click += new System.EventHandler(this.btnSwitchServer_Click);
+            // 
             // formLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(269, 209);
+            this.ClientSize = new System.Drawing.Size(269, 206);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(269, 236);
+            this.MinimumSize = new System.Drawing.Size(269, 206);
             this.Name = "formLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "登录";
@@ -228,5 +243,6 @@
         private System.Windows.Forms.Label lblTop;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox chkUserInfo;
+        private System.Windows.Forms.Button btnSwitchServer;
     }
 }

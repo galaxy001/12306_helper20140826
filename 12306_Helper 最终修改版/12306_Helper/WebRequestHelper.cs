@@ -109,6 +109,7 @@ namespace _12306_Helper
                 httpWebRequest.KeepAlive = true;
                 httpWebRequest.Headers["Cache-Control"] = "no-cache";
                 httpWebRequest.AllowAutoRedirect = true;
+                //httpWebRequest.ProtocolVersion = HttpVersion.Version11;
 
                 //协议方式  
                 httpWebRequest.Method = _method;
@@ -313,100 +314,103 @@ namespace _12306_Helper
             }
         }
         public void SendDataToServer(Action<string,CookieContainer> callback)
-        {lock(this){
-            HttpWebRequest httpWebRequest;
-            byte[] byteArray = Encoding.ASCII.GetBytes(_postdata);
-
-            //基于apache服务器,IIS发布的则不需要  
-            ServicePointManager.Expect100Continue = false;
-
-            //创建对url的请求  
-            httpWebRequest = (HttpWebRequest)WebRequest.Create(_url);
-            httpWebRequest.Referer = _refer;
-            httpWebRequest.CookieContainer = _cookie;
-            httpWebRequest.Accept = "image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/QVOD, application/QVOD, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-xpsdocument, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
-            httpWebRequest.Headers["Accept-Language"] = "zh-cn";
-            httpWebRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; EmbeddedWB 14.52 from: http://www.bsalsa.com/ EmbeddedWB 14.52; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)";
-            httpWebRequest.ContentType = "application/x-www-form-urlencoded";
-            httpWebRequest.KeepAlive = true;
-            httpWebRequest.Headers["Cache-Control"] = "no-cache";
-            //协议方式  
-            httpWebRequest.Method = _method;
-            httpWebRequest.Timeout = 20000;
-            //忽略证书
-            System.Net.ServicePointManager.ServerCertificateValidationCallback += (se, cert, chain, sslerror) =>
+        {
+            lock(this)
             {
-                return true;
-            };
-            //post开始  
-            //请求内容长度
-            if (httpWebRequest.Method == "POST" || httpWebRequest.Method == "post")
-            {
-                try
+                HttpWebRequest httpWebRequest;
+                byte[] byteArray = Encoding.ASCII.GetBytes(_postdata);
+
+                //基于apache服务器,IIS发布的则不需要  
+                ServicePointManager.Expect100Continue = false;
+
+                //创建对url的请求  
+                httpWebRequest = (HttpWebRequest)WebRequest.Create(_url);
+                httpWebRequest.Referer = _refer;
+                httpWebRequest.CookieContainer = _cookie;
+                httpWebRequest.Accept = "image/gif, image/jpeg, image/pjpeg, image/pjpeg, application/QVOD, application/QVOD, application/xaml+xml, application/x-ms-xbap, application/x-ms-application, application/vnd.ms-xpsdocument, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*";
+                httpWebRequest.Headers["Accept-Language"] = "zh-cn";
+                httpWebRequest.UserAgent = "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; EmbeddedWB 14.52 from: http://www.bsalsa.com/ EmbeddedWB 14.52; .NET CLR 2.0.50727; .NET4.0C; .NET4.0E; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)";
+                httpWebRequest.ContentType = "application/x-www-form-urlencoded";
+                httpWebRequest.KeepAlive = true;
+                httpWebRequest.Headers["Cache-Control"] = "no-cache";
+                //协议方式  
+                httpWebRequest.Method = _method;
+                httpWebRequest.Timeout = 20000;
+                //忽略证书
+                System.Net.ServicePointManager.ServerCertificateValidationCallback += (se, cert, chain, sslerror) =>
                 {
-                    httpWebRequest.ContentLength = byteArray.Length;
-                    //Stream dataStream = httpWebRequest.GetRequestStream();
-                    //// 请求数据放入请求流  
-                    //dataStream.Write(byteArray, 0, byteArray.Length);
-                    //dataStream.Dispose();
-                    //dataStream.Close();
-                    httpWebRequest.BeginGetRequestStream((a) =>
-                    {
-                        try
-                        {
-                            using (Stream datasStream = httpWebRequest.EndGetRequestStream(a))
-                            {
-                                datasStream.Write(byteArray, 0, byteArray.Length);
-                                //异步返回html  
-                                httpWebRequest.BeginGetResponse((ar) =>
-                                {
-                                    try
-                                    {
-                                        using (var webresponse = (HttpWebResponse)httpWebRequest.EndGetResponse(ar))
-                                        {
-                                            using (var stream = webresponse.GetResponseStream())
-                                            {
-                                                using (var sr = new StreamReader(stream))
-                                                {
-                                                    callback(sr.ReadToEnd(), httpWebRequest.CookieContainer);
-                                                }
-                                            }
-                                        }
-                                    }
-                                    catch (Exception e) { callback(string.Empty,new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); }
-                                    finally { httpWebRequest.Abort(); }
-                                }, null);
-                            }
-                        }
-                        catch (Exception e) { callback(string.Empty,new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); httpWebRequest.Abort(); return; }
-                    }, null);
-                }
-                catch (Exception e) { callback(string.Empty, new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); }
-
-            }
-            else
-            {
-                //异步返回html  
-                httpWebRequest.BeginGetResponse((ar) =>
+                    return true;
+                };
+                //post开始  
+                //请求内容长度
+                if (httpWebRequest.Method == "POST" || httpWebRequest.Method == "post")
                 {
                     try
                     {
-                        using (var webresponse = (HttpWebResponse)httpWebRequest.EndGetResponse(ar))
+                        httpWebRequest.ContentLength = byteArray.Length;
+                        //Stream dataStream = httpWebRequest.GetRequestStream();
+                        //// 请求数据放入请求流  
+                        //dataStream.Write(byteArray, 0, byteArray.Length);
+                        //dataStream.Dispose();
+                        //dataStream.Close();
+                        httpWebRequest.BeginGetRequestStream((a) =>
                         {
-                            using (var stream = webresponse.GetResponseStream())
+                            try
                             {
-                                using (var sr = new StreamReader(stream))
+                                using (Stream datasStream = httpWebRequest.EndGetRequestStream(a))
                                 {
-                                    callback(sr.ReadToEnd(), httpWebRequest.CookieContainer);
+                                    datasStream.Write(byteArray, 0, byteArray.Length);
+                                    //异步返回html  
+                                    httpWebRequest.BeginGetResponse((ar) =>
+                                    {
+                                        try
+                                        {
+                                            using (var webresponse = (HttpWebResponse)httpWebRequest.EndGetResponse(ar))
+                                            {
+                                                using (var stream = webresponse.GetResponseStream())
+                                                {
+                                                    using (var sr = new StreamReader(stream))
+                                                    {
+                                                        callback(sr.ReadToEnd(), httpWebRequest.CookieContainer);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        catch (Exception e) { callback(string.Empty,new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); }
+                                        finally { httpWebRequest.Abort(); }
+                                    }, null);
+                                }
+                            }
+                            catch (Exception e) { callback(string.Empty,new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); httpWebRequest.Abort(); return; }
+                        }, null);
+                    }
+                    catch (Exception e) { callback(string.Empty, new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); }
+
+                }
+                else
+                {
+                    //异步返回html  
+                    httpWebRequest.BeginGetResponse((ar) =>
+                    {
+                        try
+                        {
+                            using (var webresponse = (HttpWebResponse)httpWebRequest.EndGetResponse(ar))
+                            {
+                                using (var stream = webresponse.GetResponseStream())
+                                {
+                                    using (var sr = new StreamReader(stream))
+                                    {
+                                        callback(sr.ReadToEnd(), httpWebRequest.CookieContainer);
+                                    }
                                 }
                             }
                         }
-                    }
-                    catch (Exception e) { callback(string.Empty, new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); }
-                    finally { httpWebRequest.Abort(); }
-                }, null);
+                        catch (Exception e) { callback(string.Empty, new CookieContainer()); LogClass.WriteLogFile("WebRequestHelper Catch:" + e.Message + "\r\nSource:" + e.Source + "\r\nException:" + e.ToString()); }
+                        finally { httpWebRequest.Abort(); }
+                    }, null);
+                }
             }
         }
-        }
+        
     }
 }

@@ -170,6 +170,44 @@ using System.Runtime.InteropServices;
 2.4.2.2
 [*] 修正一些小问题
 
+2.4.2.3
+[*] 修复hosts文件无法访问时无法使用的BUG
+[+] 增加服务器切换窗口
+
+2.4.2.4
+[*] 修改一些提交方式和显示样式
+[+] 增加对IP切换的控制
+
+2.4.3.0
+[*] 修复一些BUG
+[+] 增加瓦房店西
+[+] 增加编辑联系人,暂时不支持修改非成人信息
+
+2.4.4.0
+[*] 修复一些BUG
+[+] 增加添加联系人功能(暂时只能添加成人)
+[+] 增加手动切换服务器功能
+
+2.4.5.0
+[*] 修复查询起售时间的BUG
+[*] 修复无法修改姓名和证件的BUG
+
+2.4.5.5
+[*] 修改当无座票不可售时，订票页面对无座的处理
+
+2.4.5.6
+[*] 修复第一次登录成功后无法加载联系人的问题（第一次加载可能过慢）
+
+2.4.6.0
+[+] 增加几个未录入的车站
+[+] 在登录窗体中增加服务器自动切换功能(隐藏)
+
+2.4.6.3
+[*] 优化了车次列表的着色方法
+[*] 修复对无座处理的BUG
+
+2.4.6.4
+[*] 修复了一些查询无法加载的问题
 ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("http://www.cnblogs.com/StupidsCat/")]
@@ -196,6 +234,6 @@ using System.Runtime.InteropServices;
 // 可以指定所有这些值，也可以使用“内部版本号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.2.2")]
-[assembly: AssemblyFileVersion("2.4.2.2")]
+[assembly: AssemblyVersion("2.4.6.4")]
+[assembly: AssemblyFileVersion("2.4.6.4")]
 [assembly: FSLib.App.SimpleUpdater.Updatable2("http://www.fishlee.net/service/update/51/{0}", "update_c.xml")]
